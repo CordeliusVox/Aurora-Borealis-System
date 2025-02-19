@@ -176,7 +176,7 @@ function AuroraManager.new()
 	self.Folder.Name = "AuroraManager"
 	self.Folder.Parent = workspace
 
-	-- Create multiple AuroraBands with different configurations. (Can add ad many as u want)
+	-- Create multiple AuroraBands with different configurations. (Can add as many as u want)
 	table.insert(self.Bands, AuroraBand.new(Vector3.new(-80, 110, -60), 320, 26, 14, 1.3, Color3.fromRGB(0, 255, 200), Color3.fromRGB(100, 50, 255), self.Folder))
 	table.insert(self.Bands, AuroraBand.new(Vector3.new(-40, 135, 30), 280, 22, 12, 1.1, Color3.fromRGB(50, 255, 180), Color3.fromRGB(90, 40, 240), self.Folder))
 	table.insert(self.Bands, AuroraBand.new(Vector3.new(60, 120, -90), 350, 30, 10, 1.5, Color3.fromRGB(0, 255, 180), Color3.fromRGB(80, 20, 255), self.Folder))
