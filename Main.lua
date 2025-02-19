@@ -217,7 +217,7 @@ end
 	This function dynamically adjusts the sky's ambient colors based on the aurora's mood.
 ]]--
 local function UpdateSkyColor(Time)
-	-- Define two base ambient colors: one for a darker, night like mood and one slightly brighter.
+	-- Define two base ambient colors: one for a darker, night like vibe and one slightly brighter.
 	local DayColor = Color3.fromRGB(20, 20, 60)
 	local NightColor = Color3.fromRGB(5, 5, 20)
 	-- Use a sine wave to smoothly transition between these two colors over time.
@@ -251,6 +251,7 @@ AdvancedLogger("Advanced Aurora Borealis System Initialized", "DEBUG")
 	Pressing the 'T' key toggles the transparency and light enabled state for all segments.
 ]]--
 local AuroraVisible = true  -- Initial visibility state
+local AuroraTweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out) -- Set tween properties (1 second, ease out)
 
 -- Listen for key press events using UserInputService.
 UserInputService.InputBegan:Connect(function(Input, GameProcessed)
@@ -260,14 +261,25 @@ UserInputService.InputBegan:Connect(function(Input, GameProcessed)
 
 	if Input.KeyCode == Enum.KeyCode.T then
 		AuroraVisible = not AuroraVisible  -- Toggle the visibility flag.
+
 		-- Loop through all aurora bands and their segments to update transparency and lighting.
 		for _, Band in ipairs(_AuroraManager.Bands) do
 			for _, SegmentData in ipairs(Band.Segments) do
-				-- When invisible, set transparency to full (1) and disable light.
-				SegmentData.Part.Transparency = AuroraVisible and 0.3 or 1
+				-- Tween the transparency of the part.
+				local TransparencyTween = TweenService:Create(SegmentData.Part, AuroraTweenInfo, {Transparency = AuroraVisible and 0.3 or 1})
+				TransparencyTween:Play()
+
+				-- Set the light's enabled property instantly (no tween).
 				SegmentData.Light.Enabled = AuroraVisible
+
+				-- Set the particle emitter's transparency instantly (no tween).
+				SegmentData.Part.ParticleEmitter.Transparency = NumberSequence.new({
+					NumberSequenceKeypoint.new(0, AuroraVisible and 0 or 1),  -- Fully transparent or fully visible
+					NumberSequenceKeypoint.new(1, AuroraVisible and 0 or 1)   -- Same transparency at the end
+				})
 			end
 		end
+
 		AdvancedLogger("Aurora visibility toggled: " .. tostring(AuroraVisible), "INFO")
 	end
 end)
