@@ -22,15 +22,12 @@ local function AdvancedLogger(Message, Level)
 end
 
 --[[
-	AuroraBand Class Definition:
 	This class represents a single band of the aurora. Each band is composed of multiple segments that wave in the sky.
 ]]--
 local AuroraBand = {}
 AuroraBand.__index = AuroraBand
 
 --[[
-    AuroraBand.new(Origin, Length, SegmentCount, Amplitude, Frequency, BaseColor, FadeColor)
-    
     Creates a new AuroraBand instance.
     
     Parameters:
@@ -112,8 +109,6 @@ function AuroraBand.new(Origin, Length, SegmentCount, Amplitude, Frequency, Base
 end
 
 --[[
-    AuroraBand:Update(DeltaTime, Time)
-    
     Updates the position and color of each segment in the band to create a dynamic,
     wavy aurora effect. The update is based on sine and cosine functions to simulate natural motion.
     
@@ -151,15 +146,12 @@ function AuroraBand:Update(DeltaTime, Time)
 end
 
 --[[
-	AuroraManager Class Definition:
 	This class manages multiple AuroraBand instances to create a richer aurora display.
 ]]--
 local AuroraManager = {}
 AuroraManager.__index = AuroraManager
 
 --[[
-    AuroraManager.new()
-    
     Initializes the AuroraManager which creates several AuroraBand instances,
     each with different parameters to produce a layered and varied aurora effect.
     
@@ -197,8 +189,6 @@ function AuroraManager.new()
 end
 
 --[[
-    AuroraManager:Update(DeltaTime, Time)
-    
     Calls the update function for each AuroraBand managed by the AuroraManager.
     This maintains the update logic for all aurora bands.
     
