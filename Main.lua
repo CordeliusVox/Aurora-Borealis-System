@@ -22,12 +22,15 @@ local function AdvancedLogger(Message, Level)
 end
 
 --[[
+	AuroraBand Class Definition:
 	This class represents a single band of the aurora. Each band is composed of multiple segments that wave in the sky.
 ]]--
 local AuroraBand = {}
 AuroraBand.__index = AuroraBand
 
 --[[
+    AuroraBand.new(Origin, Length, SegmentCount, Amplitude, Frequency, BaseColor, FadeColor)
+    
     Creates a new AuroraBand instance.
     
     Parameters:
@@ -109,6 +112,8 @@ function AuroraBand.new(Origin, Length, SegmentCount, Amplitude, Frequency, Base
 end
 
 --[[
+    AuroraBand:Update(DeltaTime, Time)
+    
     Updates the position and color of each segment in the band to create a dynamic,
     wavy aurora effect. The update is based on sine and cosine functions to simulate natural motion.
     
@@ -146,12 +151,15 @@ function AuroraBand:Update(DeltaTime, Time)
 end
 
 --[[
+	AuroraManager Class Definition:
 	This class manages multiple AuroraBand instances to create a richer aurora display.
 ]]--
 local AuroraManager = {}
 AuroraManager.__index = AuroraManager
 
 --[[
+    AuroraManager.new()
+    
     Initializes the AuroraManager which creates several AuroraBand instances,
     each with different parameters to produce a layered and varied aurora effect.
     
@@ -169,26 +177,28 @@ function AuroraManager.new()
 	self.Folder.Parent = workspace
 
 	-- Create multiple AuroraBands with different configurations. (Can add ad many as u want)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(-80, 110, -60), 320, 26, 14, 1.3, Color3.fromRGB(0, 255, 200), Color3.fromRGB(100, 50, 255)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(-40, 135, 30), 280, 22, 12, 1.1, Color3.fromRGB(50, 255, 180), Color3.fromRGB(90, 40, 240)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(60, 120, -90), 350, 30, 10, 1.5, Color3.fromRGB(0, 255, 180), Color3.fromRGB(80, 20, 255)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(-100, 145, 70), 270, 24, 18, 1.0, Color3.fromRGB(20, 255, 220), Color3.fromRGB(110, 30, 230)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(50, 150, -50), 310, 27, 17, 1.25, Color3.fromRGB(10, 245, 200), Color3.fromRGB(140, 50, 255)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(-70, 140, 20), 360, 32, 13, 1.6, Color3.fromRGB(0, 255, 190), Color3.fromRGB(70, 20, 250)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(20, 160, -10), 290, 23, 19, 1.05, Color3.fromRGB(5, 255, 210), Color3.fromRGB(100, 35, 240)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(-30, 125, 90), 280, 21, 13, 1.1, Color3.fromRGB(0, 220, 210), Color3.fromRGB(90, 30, 240)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(90, 135, -70), 260, 19, 15, 0.9, Color3.fromRGB(10, 240, 190), Color3.fromRGB(110, 25, 230)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(-50, 130, -30), 300, 25, 12, 1.3, Color3.fromRGB(0, 235, 205), Color3.fromRGB(80, 20, 255)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(30, 145, 40), 330, 28, 14, 1.4, Color3.fromRGB(0, 250, 180), Color3.fromRGB(130, 40, 255)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(-90, 120, 10), 290, 22, 11, 1.2, Color3.fromRGB(5, 255, 190), Color3.fromRGB(95, 35, 250)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(10, 150, -80), 340, 28, 16, 1.4, Color3.fromRGB(0, 230, 255), Color3.fromRGB(130, 60, 255)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(-60, 155, 50), 250, 20, 20, 0.8, Color3.fromRGB(0, 200, 255), Color3.fromRGB(150, 0, 255)), self.Folder)
-	table.insert(self.Bands, AuroraBand.new(Vector3.new(70, 125, -40), 320, 26, 14, 1.3, Color3.fromRGB(0, 180, 255), Color3.fromRGB(120, 10, 250)), self.Folder)
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(-80, 110, -60), 320, 26, 14, 1.3, Color3.fromRGB(0, 255, 200), Color3.fromRGB(100, 50, 255), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(-40, 135, 30), 280, 22, 12, 1.1, Color3.fromRGB(50, 255, 180), Color3.fromRGB(90, 40, 240), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(60, 120, -90), 350, 30, 10, 1.5, Color3.fromRGB(0, 255, 180), Color3.fromRGB(80, 20, 255), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(-100, 145, 70), 270, 24, 18, 1.0, Color3.fromRGB(20, 255, 220), Color3.fromRGB(110, 30, 230), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(50, 150, -50), 310, 27, 17, 1.25, Color3.fromRGB(10, 245, 200), Color3.fromRGB(140, 50, 255), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(-70, 140, 20), 360, 32, 13, 1.6, Color3.fromRGB(0, 255, 190), Color3.fromRGB(70, 20, 250), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(20, 160, -10), 290, 23, 19, 1.05, Color3.fromRGB(5, 255, 210), Color3.fromRGB(100, 35, 240), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(-30, 125, 90), 280, 21, 13, 1.1, Color3.fromRGB(0, 220, 210), Color3.fromRGB(90, 30, 240), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(90, 135, -70), 260, 19, 15, 0.9, Color3.fromRGB(10, 240, 190), Color3.fromRGB(110, 25, 230), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(-50, 130, -30), 300, 25, 12, 1.3, Color3.fromRGB(0, 235, 205), Color3.fromRGB(80, 20, 255), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(30, 145, 40), 330, 28, 14, 1.4, Color3.fromRGB(0, 250, 180), Color3.fromRGB(130, 40, 255), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(-90, 120, 10), 290, 22, 11, 1.2, Color3.fromRGB(5, 255, 190), Color3.fromRGB(95, 35, 250), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(10, 150, -80), 340, 28, 16, 1.4, Color3.fromRGB(0, 230, 255), Color3.fromRGB(130, 60, 255), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(-60, 155, 50), 250, 20, 20, 0.8, Color3.fromRGB(0, 200, 255), Color3.fromRGB(150, 0, 255), self.Folder))
+	table.insert(self.Bands, AuroraBand.new(Vector3.new(70, 125, -40), 320, 26, 14, 1.3, Color3.fromRGB(0, 180, 255), Color3.fromRGB(120, 10, 250), self.Folder))
 
 	return self
 end
 
 --[[
+    AuroraManager:Update(DeltaTime, Time)
+    
     Calls the update function for each AuroraBand managed by the AuroraManager.
     This maintains the update logic for all aurora bands.
     
@@ -257,7 +267,7 @@ UserInputService.InputBegan:Connect(function(Input, GameProcessed)
 				SegmentData.Part.Transparency = AuroraVisible and 0.3 or 1
 				SegmentData.Light.Enabled = AuroraVisible
 			end
-    end
+		end
 		AdvancedLogger("Aurora visibility toggled: " .. tostring(AuroraVisible), "INFO")
 	end
 end)
