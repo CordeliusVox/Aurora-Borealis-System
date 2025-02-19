@@ -13,6 +13,15 @@ local RunService = game:GetService("RunService")
 local Lighting = game:GetService("Lighting")
 
 --[[
+	Advanced Logger Function simply for debugging purposes.
+	Provides detailed logging with time stamps and log levels.
+]]--
+local function AdvancedLogger(Message, Level)
+	Level = Level or "INFO"
+	print("[" .. Level .. "][" .. os.date("%X") .. "]: " .. Message)
+end
+
+--[[
 	AuroraBand Class Definition:
 	This class represents a single band of the aurora. Each band is composed of multiple segments that wave in the sky.
 ]]--
@@ -233,15 +242,6 @@ RunService.Heartbeat:Connect(function(DeltaTime)
 	-- Update the sky ambient colors to somewhat enhance the aurora mood.
 	UpdateSkyColor(CurrentTime)
 end)
-
---[[
-	Advanced Logger Function simply for debugging purposes.
-	Provides detailed logging with time stamps and log levels.
-]]--
-local function AdvancedLogger(Message, Level)
-	Level = Level or "INFO"
-	print("[" .. Level .. "][" .. os.date("%X") .. "]: " .. Message)
-end
 
 AdvancedLogger("Advanced Aurora Borealis System Initialized", "DEBUG")
 
