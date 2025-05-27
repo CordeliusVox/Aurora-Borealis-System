@@ -463,3 +463,44 @@ RunService.Heartbeat:Connect(function(DeltaTime)
     local CurrentTime = time() - StartTime -- calculate the passed time since the script started.
     UpdateSkyIntensity(CurrentTime) -- update the sky intensity based on the passed time.
 end)
+
+
+local Players = {}
+Players.__index = Players
+
+function Players.new(Name: string, Age: number)
+	local self = setmetatable(Players, {})
+
+	self.Name = Name
+	self.Age = Age
+	self.Data = self:GetData(self.Name)
+	
+	return self
+end
+
+function Players:GetAge()
+	if not self.Age then
+		print("No age for specefied user: ".. self.Name)
+	end
+
+	local AgeInDays = self.Age
+	local Years = AgeInDays % 365
+	local Months = AgeInDays % 30
+	local Days = AgeInDays
+
+	local FullTime = string.format("Years: %d, Months: %d, Days: %d", Years, Months, Days)
+	return FullTime
+end
+
+local function GetData()
+	local Module = require(Script.Data)
+	local Profiles = Module.Profiles
+
+	if not Profiles[self.Name] then
+		Profiles[self.Name] = nil
+	end
+
+	return Profiles[self.Name]
+end
+
+return Players
